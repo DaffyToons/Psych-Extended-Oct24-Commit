@@ -8,7 +8,7 @@ permissions:
 
 env:
   PROJECT_NAME: PsychEngine
-  REPO_PATH: https://github.com/PsychExtendedThings/Psych-Extended-ReBase
+  REPO_PATH: https://github.com/DaffyToons/Psych-Extended-Oct24-Commit
 
 jobs:
   build:
