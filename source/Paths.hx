@@ -193,10 +193,53 @@ class Paths
 	{
 		return getPath('shaders/$key.vert', TEXT, library);
 	}
-	inline static public function lua(key:String, ?library:String)
-	{
-		return getPath('$key.lua', TEXT, library);
-	}
+	// Improved Lua loader that searches extra_scripts and subfolders
+inline static public function lua(key:String, ?folder:String)
+{
+    var possiblePaths:Array<String> = [];
+
+    #if MODS_ALLOWED
+    if (folder != null) possiblePaths.push(mods('$folder/$key.lua'));
+    possiblePaths.push(mods('extra_scripts/$key.lua'));
+    possiblePaths.push(mods('$key.lua'));
+    #end
+
+    if (folder != null) possiblePaths.push('assets/$folder/$key.lua');
+    possiblePaths.push('assets/extra_scripts/$key.lua');
+    possiblePaths.push('assets/shared/$key.lua');
+
+    // Try to find nested Lua scripts inside extra_scripts subfolders
+    #if sys
+    var extraPath = mods("extra_scripts");
+    if (FileSystem.exists(extraPath)) {
+        for (file in FileSystem.readDirectory(extraPath)) {
+            if (FileSystem.isDirectory('$extraPath/$file')) {
+                var deepFile = '$extraPath/$file/$key.lua';
+                if (FileSystem.exists(deepFile)) return deepFile;
+            }
+        }
+    }
+    #end
+
+    for (path in possiblePaths) {
+        if (FileSystem.exists(path)) return path;
+        else if (OpenFlAssets.exists(path, TEXT)) return path;
+    }
+
+    trace('Lua script not found: $key');
+    return null;
+}
+
+// Helper for FunkinLua.addLuaScript()
+inline static public function loadLuaScript(key:String, ?folder:String):String
+{
+    var scriptPath = lua(key, folder);
+    if (scriptPath != null)
+        trace('Found Lua script: ' + scriptPath);
+    else
+        trace('Lua script not found: ' + key);
+    return scriptPath;
+}
 
 	inline public static function getScriptPath(file:String = '')
 	{
