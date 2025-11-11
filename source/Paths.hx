@@ -208,7 +208,7 @@ public static function lua(key:String, ?folder:String)
     possiblePaths.push('assets/extra_scripts/$key.lua');
     possiblePaths.push('assets/shared/$key.lua');
 
-    // Try to find nested Lua scripts inside extra_scripts subfolders
+    // 🔹 Check for nested Lua scripts inside extra_scripts subfolders
     #if sys
     var extraPath = mods("extra_scripts");
     if (FileSystem.exists(extraPath)) {
@@ -221,6 +221,7 @@ public static function lua(key:String, ?folder:String)
     }
     #end
 
+    // 🔹 Normal file checks
     for (path in possiblePaths) {
         if (FileSystem.exists(path)) return path;
         else if (OpenFlAssets.exists(path, TEXT)) return path;
