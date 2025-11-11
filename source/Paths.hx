@@ -194,7 +194,7 @@ class Paths
 		return getPath('shaders/$key.vert', TEXT, library);
 	}
 	// Improved Lua loader that searches extra_scripts and subfolders
-inline static public function lua(key:String, ?folder:String)
+public static function lua(key:String, ?folder:String)
 {
     var possiblePaths:Array<String> = [];
 
@@ -231,7 +231,7 @@ inline static public function lua(key:String, ?folder:String)
 }
 
 // Helper for FunkinLua.addLuaScript()
-inline static public function loadLuaScript(key:String, ?folder:String):String
+public static function loadLuaScript(key:String, ?folder:String):String
 {
     var scriptPath = lua(key, folder);
     if (scriptPath != null)
