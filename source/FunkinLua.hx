@@ -102,6 +102,32 @@ class FunkinLua {
 	#end
 	#end
 
+		// 🆕 Add this function here: I hope you're right about this ChatGPT
+public static function findScript(luaFile:String):String
+{
+    var pathsToCheck:Array<String> = [
+        'mods/$modFolder/scripts/$luaFile.lua',
+        'mods/scripts/$luaFile.lua',
+        'mods/$modFolder/custom_events/$luaFile.lua',
+        'mods/custom_events/$luaFile.lua',
+        'mods/$modFolder/stages/$luaFile.lua',
+        'mods/stages/$luaFile.lua',
+        'assets/preload/scripts/$luaFile.lua',
+        'assets/scripts/$luaFile.lua'
+    ];
+
+    // 💡 NEW: Also check in mods/extra_scripts
+    var extraScript:String = 'mods/extra_scripts/$luaFile.lua';
+    if (sys.FileSystem.exists(extraScript))
+        return extraScript;
+
+    for (path in pathsToCheck)
+        if (sys.FileSystem.exists(path))
+            return path;
+
+    return null;
+}
+
 	public var callbacks:Map<String, Dynamic> = new Map<String, Dynamic>();
 	public static var customFunctions:Map<String, Dynamic> = new Map<String, Dynamic>();
 
