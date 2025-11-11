@@ -102,32 +102,6 @@ class FunkinLua {
 	#end
 	#end
 
-		// 🆕 Add this function here: I hope you're right about this ChatGPT
-public static function findScript(luaFile:String):String
-{
-    var pathsToCheck:Array<String> = [
-        'mods/' + modFolder + '/scripts/' + scriptFile + ext,
-        'mods/scripts/' + scriptFile + ext,
-        'mods/' + modFolder + '/custom_events/' + scriptFile + ext,
-        'mods/custom_events/' + scriptFile + ext,
-        'mods/' + modFolder + '/stages/' + scriptFile + ext,
-        'mods/stages/' + scriptFile + ext,
-        'assets/preload/scripts/' + scriptFile + ext,
-        'assets/scripts/' + scriptFile + ext
-    ];
-
-    // 💡 NEW: Also check in mods/extra_scripts
-    var extraScript:String = 'mods/extra_scripts/$luaFile.lua';
-    if (sys.FileSystem.exists(extraScript))
-        return extraScript;
-
-    for (path in pathsToCheck)
-        if (sys.FileSystem.exists(path))
-            return path;
-
-    return null;
-}
-
 	public var callbacks:Map<String, Dynamic> = new Map<String, Dynamic>();
 	public static var customFunctions:Map<String, Dynamic> = new Map<String, Dynamic>();
 
@@ -3462,25 +3436,29 @@ public static function findScript(luaFile:String):String
 	}
 
 	function findScript(scriptFile:String, ext:String = '.lua')
-	{
-		if(!scriptFile.endsWith(ext)) scriptFile += ext;
-		var preloadPath:String = Paths.getSharedPath(scriptFile);
-		#if MODS_ALLOWED
-		var path:String = Paths.modFolders(scriptFile);
-		if(FileSystem.exists(scriptFile))
-			return scriptFile;
-		else if(FileSystem.exists(path))
-			return path;
+{
+    var pathsToCheck:Array<String> = [
+        'mods/' + modFolder + '/scripts/' + scriptFile + ext,
+        'mods/scripts/' + scriptFile + ext,
+        'mods/' + modFolder + '/custom_events/' + scriptFile + ext,
+        'mods/custom_events/' + scriptFile + ext,
+        'mods/' + modFolder + '/stages/' + scriptFile + ext,
+        'mods/stages/' + scriptFile + ext,
+        'assets/preload/scripts/' + scriptFile + ext,
+        'assets/scripts/' + scriptFile + ext
+    ];
 
-		if(FileSystem.exists(preloadPath))
-		#else
-		if(Assets.exists(preloadPath))
-		#end
-		{
-			return preloadPath;
-		}
-		return null;
-	}
+    // 💡 NEW: Also check in mods/extra_scripts
+    var extraScript:String = 'mods/extra_scripts/' + scriptFile + ext;
+    if (sys.FileSystem.exists(extraScript))
+        return extraScript;
+
+    for (path in pathsToCheck)
+        if (sys.FileSystem.exists(path))
+            return path;
+
+    return null;
+}
 
 	function getErrorMessage(status:Int):String {
 		#if LUA_ALLOWED
