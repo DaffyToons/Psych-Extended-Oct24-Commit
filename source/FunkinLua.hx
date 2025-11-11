@@ -106,14 +106,14 @@ class FunkinLua {
 public static function findScript(luaFile:String):String
 {
     var pathsToCheck:Array<String> = [
-        'mods/$modFolder/scripts/$luaFile.lua',
-        'mods/scripts/$luaFile.lua',
-        'mods/$modFolder/custom_events/$luaFile.lua',
-        'mods/custom_events/$luaFile.lua',
-        'mods/$modFolder/stages/$luaFile.lua',
-        'mods/stages/$luaFile.lua',
-        'assets/preload/scripts/$luaFile.lua',
-        'assets/scripts/$luaFile.lua'
+        'mods/' + modFolder + '/scripts/' + scriptFile + ext,
+        'mods/scripts/' + scriptFile + ext,
+        'mods/' + modFolder + '/custom_events/' + scriptFile + ext,
+        'mods/custom_events/' + scriptFile + ext,
+        'mods/' + modFolder + '/stages/' + scriptFile + ext,
+        'mods/stages/' + scriptFile + ext,
+        'assets/preload/scripts/' + scriptFile + ext,
+        'assets/scripts/' + scriptFile + ext
     ];
 
     // 💡 NEW: Also check in mods/extra_scripts
