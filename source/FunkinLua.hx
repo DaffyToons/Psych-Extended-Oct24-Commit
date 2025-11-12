@@ -3448,11 +3448,24 @@ class FunkinLua {
         'assets/scripts/' + scriptFile + ext
     ];
 
-    // 💡 NEW: Also check in mods/extra_scripts
+    // 💡 1. Check for script directly inside mods/extra_scripts
     var extraScript:String = 'mods/extra_scripts/' + scriptFile + ext;
     if (sys.FileSystem.exists(extraScript))
         return extraScript;
 
+    // 💡 2. Also check inside nested folders of mods/extra_scripts
+    var baseExtra:String = 'mods/extra_scripts';
+    if (sys.FileSystem.exists(baseExtra))
+    {
+        for (folder in sys.FileSystem.readDirectory(baseExtra))
+        {
+            var deepFile:String = baseExtra + '/' + folder + '/' + scriptFile + ext;
+            if (sys.FileSystem.exists(deepFile))
+                return deepFile;
+        }
+    }
+
+    // 💡 3. Fallback to normal paths
     for (path in pathsToCheck)
         if (sys.FileSystem.exists(path))
             return path;
