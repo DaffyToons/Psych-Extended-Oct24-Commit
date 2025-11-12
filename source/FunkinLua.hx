@@ -3449,7 +3449,7 @@ class FunkinLua {
         'assets/scripts/' + scriptFile + ext
     ];
 
-    // 💡 NEW: Also check in mods/extra_scripts and its subfolders
+    // NEW: Also check extra_scripts folder and subfolders
     var extraPaths:Array<String> = [
         'mods/' + modFolder + '/extra_scripts/' + scriptFile + ext,
         'mods/extra_scripts/' + scriptFile + ext,
@@ -3457,8 +3457,8 @@ class FunkinLua {
     ];
 
     #if sys
-    // Check subfolders inside extra_scripts
-    var extraScriptFolder = 'mods/extra_scripts';
+    // Recursively check subfolders in mods/extra_scripts
+    var extraScriptFolder:String = 'mods/extra_scripts';
     if (sys.FileSystem.exists(extraScriptFolder)) {
         for (file in sys.FileSystem.readDirectory(extraScriptFolder)) {
             var subfolderPath = extraScriptFolder + '/' + file;
@@ -3476,7 +3476,7 @@ class FunkinLua {
         if (sys.FileSystem.exists(p))
             return p;
 
-    // Check the regular paths
+    // Check standard paths
     for (path in pathsToCheck)
         if (sys.FileSystem.exists(path))
             return path;
