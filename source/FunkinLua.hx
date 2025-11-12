@@ -428,22 +428,23 @@ class FunkinLua {
 		});
 		
 		Lua_helper.add_callback(lua, "addLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) {
-			var luaPath:String = findScript(luaFile);
-			if(luaPath != null)
-			{
-				if(!ignoreAlreadyRunning)
-					for (luaInstance in game.luaArray)
-						if(luaInstance.scriptName == luaPath)
-						{
-							luaTrace('addLuaScript: The script "' + luaPath + '" is already running!');
-							return;
-						}
+    var luaPath:String = findScript(luaFile);
+    if (luaPath == null) luaPath = findExtraScript(luaFile);
+    if(luaPath != null)
+    {
+        if(!ignoreAlreadyRunning)
+            for (luaInstance in game.luaArray)
+                if(luaInstance.scriptName == luaPath)
+                {
+                    luaTrace('addLuaScript: The script "' + luaPath + '" is already running!');
+                    return;
+                }
 
-				new FunkinLua(luaPath);
-				return;
-			}
-			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
-		});
+        new FunkinLua(luaPath);
+        return;
+    }
+    luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
+});
 		Lua_helper.add_callback(lua, "addHScript", function(scriptFile:String, ?ignoreAlreadyRunning:Bool = false) {
 			#if HSCRIPT_ALLOWED
 			var scriptPath:String = findScript(scriptFile, '.hx');
