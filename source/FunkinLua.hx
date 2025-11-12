@@ -3436,41 +3436,52 @@ class FunkinLua {
 		#end
 	}
 
-	public static function findScript(scriptFile:String, ext:String = '.lua')
+	public function findScript(scriptFile:String, ext:String = '.lua')
 {
     var pathsToCheck:Array<String> = [
+        'mods/' + modFolder + '/scripts/' + scriptFile + ext,
         'mods/scripts/' + scriptFile + ext,
+        'mods/' + modFolder + '/custom_events/' + scriptFile + ext,
         'mods/custom_events/' + scriptFile + ext,
+        'mods/' + modFolder + '/stages/' + scriptFile + ext,
         'mods/stages/' + scriptFile + ext,
         'assets/preload/scripts/' + scriptFile + ext,
         'assets/scripts/' + scriptFile + ext
     ];
 
-    // 🔧 Also check mods/extra_scripts and its subfolders
-    var extraPaths:Array<String> = [];
+    // 💡 NEW: Also check in mods/extra_scripts and its subfolders
+    var extraPaths:Array<String> = [
+        'mods/' + modFolder + '/extra_scripts/' + scriptFile + ext,
+        'mods/extra_scripts/' + scriptFile + ext,
+        'assets/extra_scripts/' + scriptFile + ext
+    ];
+
     #if sys
-    if (FileSystem.exists('mods/extra_scripts'))
-    {
-        for (file in FileSystem.readDirectory('mods/extra_scripts'))
-        {
-            var full = 'mods/extra_scripts/' + file;
-            if (FileSystem.isDirectory(full))
-            {
-                var deep = full + '/' + scriptFile + ext;
-                if (FileSystem.exists(deep))
-                    return deep;
+    // Check subfolders inside extra_scripts
+    var extraScriptFolder = 'mods/extra_scripts';
+    if (sys.FileSystem.exists(extraScriptFolder)) {
+        for (file in sys.FileSystem.readDirectory(extraScriptFolder)) {
+            var subfolderPath = extraScriptFolder + '/' + file;
+            if (sys.FileSystem.isDirectory(subfolderPath)) {
+                var deepFile = subfolderPath + '/' + scriptFile + ext;
+                if (sys.FileSystem.exists(deepFile))
+                    return deepFile;
             }
-            else if (file == scriptFile + ext)
-                return full;
         }
     }
     #end
 
+    // Check all extra paths
+    for (p in extraPaths)
+        if (sys.FileSystem.exists(p))
+            return p;
+
+    // Check the regular paths
     for (path in pathsToCheck)
-        if (FileSystem.exists(path))
+        if (sys.FileSystem.exists(path))
             return path;
 
-    trace('[findScript] Script not found: ' + scriptFile);
+    trace('findScript: Could not locate ' + scriptFile + ext);
     return null;
 }
 			// === EXTENDED PATCH: Support for extra_scripts ===
