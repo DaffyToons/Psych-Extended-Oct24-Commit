@@ -3472,7 +3472,29 @@ class FunkinLua {
 
     return null;
 }
+			// === EXTENDED PATCH: Support for extra_scripts ===
+public static function findExtraScript(scriptFile:String, ext:String = '.lua'):String
+{
+    #if sys
+    var extraPaths:Array<String> = [
+        'mods/extra_scripts/' + scriptFile + ext,
+        'mods/' + modFolder + '/extra_scripts/' + scriptFile + ext,
+        'assets/extra_scripts/' + scriptFile + ext,
+        'assets/shared/extra_scripts/' + scriptFile + ext
+    ];
 
+    for (p in extraPaths)
+    {
+        if (sys.FileSystem.exists(p))
+        {
+            trace('[EXTRA SCRIPT] Found: ' + p);
+            return p;
+        }
+    }
+    #end
+
+    return null;
+}
 	function getErrorMessage(status:Int):String {
 		#if LUA_ALLOWED
 		var v:String = Lua.tostring(lua, -1);
