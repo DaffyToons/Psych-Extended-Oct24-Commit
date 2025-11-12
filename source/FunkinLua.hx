@@ -3436,41 +3436,41 @@ class FunkinLua {
 		#end
 	}
 
-	function findScript(scriptFile:String, ext:String = '.lua')
+	public static function findScript(scriptFile:String, ext:String = '.lua')
 {
     var pathsToCheck:Array<String> = [
-        'mods/' + modFolder + '/scripts/' + scriptFile + ext,
         'mods/scripts/' + scriptFile + ext,
-        'mods/' + modFolder + '/custom_events/' + scriptFile + ext,
         'mods/custom_events/' + scriptFile + ext,
-        'mods/' + modFolder + '/stages/' + scriptFile + ext,
         'mods/stages/' + scriptFile + ext,
         'assets/preload/scripts/' + scriptFile + ext,
         'assets/scripts/' + scriptFile + ext
     ];
 
-    // 💡 1. Check for script directly inside mods/extra_scripts
-    var extraScript:String = 'mods/extra_scripts/' + scriptFile + ext;
-    if (sys.FileSystem.exists(extraScript))
-        return extraScript;
-
-    // 💡 2. Also check inside nested folders of mods/extra_scripts
-    var baseExtra:String = 'mods/extra_scripts';
-    if (sys.FileSystem.exists(baseExtra))
+    // 🔧 Also check mods/extra_scripts and its subfolders
+    var extraPaths:Array<String> = [];
+    #if sys
+    if (FileSystem.exists('mods/extra_scripts'))
     {
-        for (folder in sys.FileSystem.readDirectory(baseExtra))
+        for (file in FileSystem.readDirectory('mods/extra_scripts'))
         {
-            var deepFile:String = baseExtra + '/' + folder + '/' + scriptFile + ext;
-            if (sys.FileSystem.exists(deepFile))
-                return deepFile;
+            var full = 'mods/extra_scripts/' + file;
+            if (FileSystem.isDirectory(full))
+            {
+                var deep = full + '/' + scriptFile + ext;
+                if (FileSystem.exists(deep))
+                    return deep;
+            }
+            else if (file == scriptFile + ext)
+                return full;
         }
     }
+    #end
 
-    // 💡 3. Fallback to normal paths
     for (path in pathsToCheck)
-        if (sys.FileSystem.exists(path))
+        if (FileSystem.exists(path))
             return path;
 
+    trace('[findScript] Script not found: ' + scriptFile);
     return null;
 }
 			// === EXTENDED PATCH: Support for extra_scripts ===
