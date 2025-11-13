@@ -41,11 +41,6 @@ class MobileButton extends TypedMobileButton<FlxSprite>
 	public var IDs:Array<MobileInputID> = [];
 
 	/**
-	 * The `String` that are assigned to this button. (used for extra controls bc they're doesn't have a number)
-	**/
-	public var strName:String = null;
-
-	/**
 	 * A Small invisible bounds used for colision
 	**/
 	public var bounds:FlxSprite = new FlxSprite();
@@ -57,14 +52,12 @@ class MobileButton extends TypedMobileButton<FlxSprite>
 	 * @param   X		 The x position of the button.
 	 * @param   Y		 The y position of the button.
 	 * @param   IDs        The button's IDs(used for input handling so be careful).
-	 * @param   strNames       The button's strNames(used for input handling so be careful & do not use this with IDs, otherwise buttons can be broken).
 	 */
-	public function new(X:Float = 0, Y:Float = 0, ?IDs:Array<MobileInputID> = null, ?strName:String):Void
+	public function new(X:Float = 0, Y:Float = 0, ?IDs:Array<MobileInputID> = null):Void
 	{
 		super(X, Y);
 
 		this.IDs = IDs == null ? [] : IDs;
-		this.strName = strName == null ? null : strName;
 	}
 
 	public inline function centerInBounds()
@@ -86,10 +79,6 @@ class MobileButton extends TypedMobileButton<FlxSprite>
 #end
 class TypedMobileButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 {
-	//A Simple Substate Fix for 1.0x editors
-	public var inSubstate:Bool;
-	public var inState:Bool;
-
 	/**
 	 * The label that appears on the button. Can be any `FlxSprite`.
 	 */
@@ -282,7 +271,7 @@ class TypedMobileButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		super.update(elapsed);
 
-		if (visible && inSubstate != inState)
+		if (visible)
 		{
 			// Update the button, but only if at least either touches are enabled
 			#if FLX_POINTER_INPUT
