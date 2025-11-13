@@ -41,7 +41,6 @@ class MusicBeatSubstate extends FlxSubState
 		mobilePad = new MobilePad(DPad, Action);
 		add(mobilePad);
 		mobilePad.alpha = ClientPrefs.data.mobilePadAlpha;
-		mobilePad.inSubstate = true;
 	}
 
 	public function addMobileControls(?customControllerValue:Int, ?mode:String) {
@@ -64,13 +63,7 @@ class MusicBeatSubstate extends FlxSubState
 			hitbox_hint.cameras = [camcontrol];
 		}
 
-		mobilec.instance.inSubstate = true;
 		add(mobilec.instance);
-	}
-
-	public function removeMobileControls() {
-		if (mobilec != null)
-			remove(mobilec.instance);
 	}
 
 	public function removeMobilePad() {

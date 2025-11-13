@@ -72,7 +72,6 @@ class MusicBeatState extends FlxUIState
 		mobilePad = new MobilePad(DPad, Action);
 		add(mobilePad);
 		mobilePad.alpha = ClientPrefs.data.mobilePadAlpha;
-		mobilePad.inState = true; //If you want to ignore the mobilePad set this false or set `inSubstate` true.
 	}
 
 	public function removeMobilePad() {
@@ -98,7 +97,7 @@ class MusicBeatState extends FlxUIState
 		addMobilePadCamera();
 	}
 
-	public function addMobileControls(?mode:String) {
+	public function addMobileControls(?customControllerValue:Int, ?mode:String) {
 		if(ClientPrefs.data.hitboxmode == 'Classic') {
 			mobilec = new HitboxOld();
 		} else {
@@ -119,7 +118,6 @@ class MusicBeatState extends FlxUIState
 		}
 
 		add(mobilec.instance);
-		mobilec.instance.inState = true;
 	}
 
 	public function addMobilePadCamera() {

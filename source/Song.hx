@@ -20,16 +20,15 @@ typedef SwagSong =
 	var bpm:Float;
 	var needsVoices:Bool;
 	var speed:Float;
-	@:optional var offset:Float;
+	var offset:Float;
 
 	var player1:String;
 	var player2:String;
 	var gfVersion:String;
 	var stage:String;
-	@:optional var format:String;
+	var format:String;
 
 	@:optional var disableVSliceControls:Bool; //for mechanics
-	@:optional var cameraMode:String;
 
 	@:optional var gameOverChar:String;
 	@:optional var gameOverSound:String;
@@ -40,7 +39,18 @@ typedef SwagSong =
 
 	@:optional var arrowSkin:String;
 	@:optional var splashSkin:String;
-	@:optional var validScore:Bool;
+	var validScore:Bool;
+}
+
+typedef ExtraChartOptionsMain =
+{
+	options:Array<ExtraChartOptions>
+}
+
+typedef ExtraChartOptions =
+{
+	forcedChart:String, // forced chart system, works like txt ones but this one in json instead of txt.
+	forcedCamera:String //0.6 or 0.7x camera system (maybe CNE Camera can be added when Stage system full finished)
 }
 
 class Song
@@ -117,6 +127,9 @@ class Song
 	public static function loadFromJson(jsonInput:String, ?folder:String, ?isEditor:Bool):SwagSong
 	{
 		currentChartLoadSystem = null;
+		PlayState.cameraMode = null;
+
+		getExtraChartOptions(folder);
 
 		var cneChartExists:Bool = false;
 		var convertedChart:String = null;
@@ -144,7 +157,7 @@ class Song
 
 		if (ClientPrefs.data.chartEditor == '1.0x' && isEditor) currentChartLoadSystem = 'psych_v1';
 		else if (isEditor) currentChartLoadSystem = 'psych_legacy';
-		getOptionsFromJson(jsonInput, folder, 'psych_legacy', cneChartExists, convertedChart, isEditor);
+		else getChartVersion(jsonInput, folder, 'psych_legacy', cneChartExists, convertedChart);
 		trace(currentChartLoadSystem);
 
 		if (currentChartLoadSystem == 'psych_v1')
@@ -196,6 +209,20 @@ class Song
 			if (ClientPrefs.data.chartEditor == '1.0x' && isEditor)
 				PlayState.SONG = songJson; //1.0 option fix
 			return songJson;
+		}
+	}
+
+	public static function getExtraChartOptions(folder:String) {
+		var loadedSongFolder = 'data/' + Paths.formatToSongPath(folder) + '/extraOptions.json';
+		var extraChartOptions:ExtraChartOptionsMain;
+
+		if (Paths.fileExists(loadedSongFolder, TEXT, false)) {
+			var customChartOption = Paths.getPath(loadedSongFolder, TEXT, true);
+			extraChartOptions = cast Json.parse(File.getContent(customChartOption));
+
+			for (option in extraChartOptions.options) {
+				if (option.forcedCamera != null) PlayState.cameraMode = option.forcedCamera;
+			}
 		}
 	}
 
@@ -260,23 +287,20 @@ class Song
 		return rawData != null ? parseJSON(rawData, jsonInput) : null;
 	}
 
-	public static function getOptionsFromJson(jsonInput:String, ?folder:String, ?convertTo:String = 'psych_v1', ?cneExists:Bool, ?convertedChart:String, ?isEditor:Bool):Void
+	public static function getChartVersion(jsonInput:String, ?folder:String, ?convertTo:String = 'psych_v1', ?cneExists:Bool, ?convertedChart:String):Void
 	{
 		var rawData:String = loadJson(jsonInput, folder, cneExists, convertedChart);
 
 		var songJson:SwagSong = cast Json.parse(rawData);
-		if (songJson.song != null)
+		if (songJson.song != null && convertTo == 'psych_legacy')
 		{
 			var subSong:SwagSong = Reflect.field(songJson, 'song');
-			if (convertTo == 'psych_legacy' && !isEditor)
+			if (songJson.format.startsWith('psych_v1') || subSong.format.startsWith('psych_v1'))
+				currentChartLoadSystem = 'psych_v1';
+			else
 			{
-				if (songJson.format.startsWith('psych_v1') || subSong.format.startsWith('psych_v1'))
-					currentChartLoadSystem = 'psych_v1';
-				else
-				{
-					currentChartLoadSystem = 'psych_legacy';
-					songJson.validScore = true;
-				}
+				currentChartLoadSystem = 'psych_legacy';
+				songJson.validScore = true;
 			}
 		}
 	}
