@@ -75,6 +75,10 @@ class OptionsState extends MusicBeatState
 		mouseEvent = new MouseEvent();
 		add(mouseEvent);
 
+		var background = new ChangeSprite(0, 0).load(Paths.image('menuDesat'));
+		background.antialiasing = ClientPrefs.data.antialiasing;
+		add(background);
+
 		var bg = new Rect(0, 0, FlxG.width, FlxG.height, 0, 0, baseColor);
 		add(bg);
 
