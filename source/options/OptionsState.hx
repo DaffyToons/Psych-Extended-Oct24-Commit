@@ -41,6 +41,7 @@ class OptionsState extends MusicBeatState
 
 	var naviBG:RoundRect;
 	var naviGroup:Array<NaviGroup> = [];
+	var background:FlxSprite;
 	var naviMove:MouseMove;
 
 	var cataGroup:Array<OptionCata> = [];
