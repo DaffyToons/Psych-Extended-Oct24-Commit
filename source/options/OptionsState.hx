@@ -78,6 +78,7 @@ class OptionsState extends MusicBeatState
 
 		var background = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
 		background.antialiasing = ClientPrefs.data.antialiasing;
+		background.color = 0xFF302E3A;
 		add(background);
 
 		naviBG = new RoundRect(0, 0, UIScale.adjust(FlxG.width * 0.2), FlxG.height, 0, LEFT_CENTER,  mainColor);
