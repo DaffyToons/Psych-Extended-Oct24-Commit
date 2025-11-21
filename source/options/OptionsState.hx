@@ -63,7 +63,7 @@ class OptionsState extends MusicBeatState
 		instance = this;
 		/* Stuffs I preferred */
 		FlxG.mouse.visible = true;
-		Main.fpsVar.visible = true;
+		Main.fpsVar.visible = false;
 		#if EXTRA_FPSCOUNTER Main.fpsVarNova.visible = false; #end
 
 		super.create();
