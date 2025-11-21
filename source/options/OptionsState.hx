@@ -81,6 +81,7 @@ class OptionsState extends MusicBeatState
 		add(background);
 
 		naviBG = new RoundRect(0, 0, UIScale.adjust(FlxG.width * 0.2), FlxG.height, 0, LEFT_CENTER,  mainColor);
+		naviBH.alpha = 0.8;
 		add(naviBG);
 
 		#if SCRIPTING_ALLOWED
