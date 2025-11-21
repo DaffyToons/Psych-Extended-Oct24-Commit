@@ -161,6 +161,7 @@ class OptionsState extends MusicBeatState
 		//////////////////////////////////////////////////////////////////////
 
 		specBG = new Rect(UIScale.adjust(FlxG.width * 0.2), 0, FlxG.width - UIScale.adjust(FlxG.width * 0.2), Std.int(UIScale.adjust(FlxG.height * 0.1)), 0, 0, mainColor, 0.75);
+		specBG.alpha = 0.5;
 		add(specBG);
 
 		searchButton = new SearchButton(specBG.x + specBG.height * 0.2, specBG.height * 0.2, specBG.width * 0.5, specBG.height * 0.6);
