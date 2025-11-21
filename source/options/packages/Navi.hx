@@ -55,7 +55,7 @@ class NaviGroup extends FlxSpriteGroup
 		specRect = new Rect(0, 0, 5, height * 0.5, 5, 5, EngineSet.mainColor);
 		specRect.x += height * 0.25;
 		specRect.y += height * 0.25;
-		specRect.alpha = 1;
+		specRect.alpha = 0.7;
 		specRect.scale.y = 1;
 		specRect.antialiasing = ClientPrefs.data.antialiasing;
 		add(specRect);
@@ -178,7 +178,7 @@ class NaviMember extends FlxSpriteGroup
 		specRect = new Rect(0, 0, 4, mainHeight * 0.6, 4, 4, EngineSet.mainColor);
 		specRect.x += mainHeight * 0.34;
 		specRect.y += mainHeight * 0.2;
-		specRect.alpha = 1;
+		specRect.alpha = 0.7;
 		specRect.scale.y = 1;
 		specRect.antialiasing = ClientPrefs.data.antialiasing;
 		add(specRect);
