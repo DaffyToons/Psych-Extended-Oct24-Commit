@@ -63,7 +63,7 @@ class OptionsState extends MusicBeatState
 		instance = this;
 		/* Stuffs I preferred */
 		FlxG.mouse.visible = true;
-		Main.fpsVar.visible = false;
+		Main.fpsVar.visible = true;
 		#if EXTRA_FPSCOUNTER Main.fpsVarNova.visible = false; #end
 
 		super.create();
@@ -79,9 +79,6 @@ class OptionsState extends MusicBeatState
 		var background = new FlxSprite(0, 0).loadGraphic(Paths.image('menuDesat'));
 		background.antialiasing = ClientPrefs.data.antialiasing;
 		add(background);
-
-		var bg = new Rect(0, 0, FlxG.width, FlxG.height, 0, 0, baseColor);
-		add(bg);
 
 		naviBG = new RoundRect(0, 0, UIScale.adjust(FlxG.width * 0.2), FlxG.height, 0, LEFT_CENTER,  mainColor);
 		add(naviBG);
