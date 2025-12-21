@@ -70,7 +70,7 @@ class NaviGroup extends FlxSpriteGroup
 		add(icon);
 
 		textDis = new FlxText(0, 0, 0, name, Std.int(height * 0.15));
-		textDis.setFormat(Paths.font('chillax.ttf'), Std.int(height * 0.25), EngineSet.mainColor, LEFT, FlxTextBorderStyle.OUTLINE, 0xFFFFFFFF);
+		textDis.setFormat(Paths.font('montserrat.ttf'), Std.int(height * 0.25), EngineSet.mainColor, LEFT, FlxTextBorderStyle.OUTLINE, 0xFFFFFFFF);
 		textDis.borderStyle = NONE;
 		textDis.antialiasing = ClientPrefs.data.antialiasing;
 		textDis.x += height * (0.8 + 0.15 + 0.25);
@@ -184,7 +184,7 @@ class NaviMember extends FlxSpriteGroup
 		add(specRect);
 
 		textDis = new FlxText(0, 0, 0, name, Std.int(mainHeight * 0.15));
-		textDis.setFormat(Paths.font('chillax.ttf'), Std.int(mainHeight * 0.35), EngineSet.mainColor, LEFT, FlxTextBorderStyle.OUTLINE, 0xFFFFFFFF);
+		textDis.setFormat(Paths.font('montserrat.ttf'), Std.int(mainHeight * 0.35), EngineSet.mainColor, LEFT, FlxTextBorderStyle.OUTLINE, 0xFFFFFFFF);
 		textDis.borderStyle = NONE;
 		textDis.antialiasing = ClientPrefs.data.antialiasing;
 		textDis.x += mainHeight * 0.6;
