@@ -19,7 +19,7 @@ class PauseSubStateNOVA extends MusicBeatSubstate
 {
 	public static var forcedPauseSong:String = null;
 	var filePath:String = 'menuExtend/PauseState/';
-	var font:String = Assets.getFont("assets/fonts/montserrat.ttf").fontName;
+	var font:String = Assets.getFont("assets/fonts/chillax.ttf").fontName;
 
 	var back:FlxSprite;
 	var backShadow:FlxSprite;
