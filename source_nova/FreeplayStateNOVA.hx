@@ -228,19 +228,19 @@ class FreeplayStateNOVA extends MusicBeatState
 		add(voiceLine);
 
 		timeSave = new FlxText(10, 0, 0, '', 15);
-		timeSave.font = Paths.font('montserrat.ttf');
+		timeSave.font = Paths.font('chillax.ttf');
         timeSave.antialiasing = ClientPrefs.data.antialiasing;	
 		timeSave.camera = camHS;
 		add(timeSave);
 
 		accSave = new FlxText(10, 20, 0, '', 15);
-		accSave.font = Paths.font('montserrat.ttf');
+		accSave.font = Paths.font('chillax.ttf');
         accSave.antialiasing = ClientPrefs.data.antialiasing;	
 		accSave.camera = camHS;
 		add(accSave);
 
 		scoreSave = new FlxText(10 + camHS.width * 0.4, 20, 0, '', 15);
-		scoreSave.font = Paths.font('montserrat.ttf');
+		scoreSave.font = Paths.font('chillax.ttf');
         scoreSave.antialiasing = ClientPrefs.data.antialiasing;	
 		scoreSave.camera = camHS;
 		add(scoreSave);
