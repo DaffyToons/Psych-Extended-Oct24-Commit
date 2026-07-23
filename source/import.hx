@@ -85,12 +85,12 @@ import mobile.backend.MobileScaleMode;
 #end
 
 // Android
-#if android
-import android.Tools as AndroidTools;
-import android.Settings as AndroidSettings;
+#if (android && !macro)
+import android.tools.Tools as AndroidTools;
+import android.tools.Settings as AndroidSettings;
 import android.widget.Toast as AndroidToast;
 import android.content.Context as AndroidContext;
-import android.Permissions as AndroidPermissions;
+import android.tools.Permissions as AndroidPermissions;
 import android.os.Build.VERSION as AndroidVersion;
 import android.os.Environment as AndroidEnvironment;
 import android.os.BatteryManager as AndroidBatteryManager;
