@@ -97,7 +97,7 @@ class StageData {
 		#end
 		else return dummy();
 
-		return cast Json.parse(rawJson);
+		return cast TJSON.parse(rawJson);
 	}
 
 	public static function vanillaSongStage(songName):String
