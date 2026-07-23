@@ -11,13 +11,9 @@
 		<app title="FNF': Psych Extended Debug" file="PsychEngine" packageName="com.kraloyuncu.psychextendedrebasedebug" package="com.kraloyuncu.psychextendedrebasedebug" main="Main" version="0.2.8" company="KralOyuncu" />
 	</section>
 
-	<!-- Force modern Gradle plugin versions so dependencies like extension-androidtools don't crash -->
-	<config:android gradle-version="7.5" gradle-plugin="7.4.2" />
-	
-	<!-- Inject AndroidX configuration properties directly into Lime's Gradle build -->
-	<config:android gradle-properties="android.useAndroidX=true,android.enableJetifier=true" />
+	<!-- Force modern Gradle plugin versions and enable AndroidX directly via Lime -->
+	<config:android gradle-version="7.5" gradle-plugin="7.4.2" useAndroidX="true" enableJetifier="true" />
 
-	
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 
