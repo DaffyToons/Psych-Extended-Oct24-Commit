@@ -4,8 +4,9 @@ import lime.ui.Haptic;
 import flixel.util.FlxSave;
 import mobile.backend.TouchFunctions;
 import FunkinLua.CustomSubstate;
-#if android
+#if (android && extension.androidtools)
 import android.widget.Toast as AndroidToast;
+import android.tools.Tools as AndroidTools;
 #end
 
 class MobileFunctions
@@ -194,7 +195,7 @@ class MobileFunctions
 	}
 }
 
-#if android
+#if (android && extension.androidtools)
 class AndroidFunctions
 {
 	public static function implement(funk:FunkinLua)
