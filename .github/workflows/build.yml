@@ -51,7 +51,9 @@ jobs:
           add-to-path: false
 
       - name: Install Libraries
-        run: ${{ inputs.setupCommand }}
+        run: |
+          ${{ inputs.setupCommand }}
+          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools
 
       - name: Configure Android
         if: inputs.system == 'Android'
@@ -60,7 +62,7 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT ${{ steps.setup-ndk.outputs.ndk-path }}
           haxelib run lime config JAVA_HOME $JAVA_HOME_17_X64
           haxelib run lime config ANDROID_SETUP true
-          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools
+
 
       - name: Compile
         run: haxelib run lime build ${{ inputs.buildArgs }}
