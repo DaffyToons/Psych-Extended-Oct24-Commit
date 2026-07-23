@@ -2952,7 +2952,9 @@ class FunkinLua {
 		#if (SScript || HSCRIPT_ALLOWED) HScript.implement(this); #end
 		#if (hscript && HSCRIPT_ALLOWED) HScriptOG.implement(this); #end
 		#if flxanimate FlxAnimateFunctions.implement(this); #end
-		#if android AndroidFunctions.implement(this); #end
+		#if (android && extension.androidtools) 
+		mobile.psychlua.Functions.AndroidFunctions.implement(this); 
+		#end
 		#if mobile MobileFunctions.implement(this); #end
 
 		for (name => func in customFunctions)
