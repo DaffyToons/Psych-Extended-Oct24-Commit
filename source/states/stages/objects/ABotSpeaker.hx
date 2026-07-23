@@ -121,7 +121,9 @@ class ABotSpeaker extends FlxSpriteGroup
 	public function initAnalyzer()
 	{
 		@:privateAccess
-		analyzer = new SpectralAnalyzer(snd._channel.__audioSource, 7, 0.1, 40);
+		var src:Dynamic = snd._channel;
+		var audioSrc = (src != null && Reflect.hasField(src, "__audioSource")) ? src.__audioSource : src;
+		analyzer = new SpectralAnalyzer(audioSrc, 7, 0.1, 40);
 	
 		#if !web
 		// On native it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
