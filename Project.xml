@@ -13,8 +13,8 @@
 
 	<!-- Force modern Gradle plugin versions so dependencies like extension-androidtools don't crash -->
 	<config:android gradle-version="7.5" gradle-plugin="7.4.2" />
-	<config:android property="android.useAndroidX" value="true" />
-	<config:android property="android.enableJetifier" value="true" />
+	<config:android gradle-property="android.useAndroidX" value="true" />
+	<config:android gradle-property="android.enableJetifier" value="true" />
 	<android target-sdk-version="33" compile-sdk-version="33" min-sdk-version="21" />
 	
 	<!--Switch Export with Unique ApplicationID and Icon-->
