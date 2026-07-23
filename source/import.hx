@@ -85,7 +85,7 @@ import mobile.backend.MobileScaleMode;
 #end
 
 // Android
-#if (android && !macro)
+#if (android && extension.androidtools && !macro)
 import android.tools.Tools as AndroidTools;
 import android.tools.Settings as AndroidSettings;
 import android.widget.Toast as AndroidToast;
