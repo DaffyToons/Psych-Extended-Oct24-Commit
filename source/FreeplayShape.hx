@@ -53,9 +53,10 @@ class AudioDisplay extends FlxSpriteGroup
 		_height = Height;
 
 		@:privateAccess
-		if (snd != null) 
+		if (snd != null && snd._channel != null) 
 		{
-			analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1.2), 1, 5);
+			var audioSrc:Dynamic = Reflect.hasField(snd._channel, "__audioSource") ? Reflect.field(snd._channel, "__audioSource") : snd._channel;
+			analyzer = new SpectralAnalyzer(audioSrc, Std.int(line * 1.2), 1, 5);
 			analyzer.fftN = 256;
 		}
 	}
@@ -83,9 +84,10 @@ class AudioDisplay extends FlxSpriteGroup
 
 	function addAnalyzer(snd:FlxSound) {
 		@:privateAccess
-		if (snd != null && analyzer == null) 
+		if (snd != null && snd._channel != null && analyzer == null) 
 		{
-			analyzer = new SpectralAnalyzer(snd._channel.__audioSource, Std.int(line * 1.2), 1, 5);
+			var audioSrc:Dynamic = Reflect.hasField(snd._channel, "__audioSource") ? Reflect.field(snd._channel, "__audioSource") : snd._channel;
+			analyzer = new SpectralAnalyzer(audioSrc, Std.int(line * 1.2), 1, 5);
 			analyzer.fftN = 256;
 		}
 	}
@@ -93,7 +95,11 @@ class AudioDisplay extends FlxSpriteGroup
 	public function changeAnalyzer(snd:FlxSound) 
 	{
 	  @:privateAccess
-	  analyzer.changeSnd(snd._channel.__audioSource);
+	  if (snd != null && snd._channel != null && analyzer != null)
+	  {
+		var audioSrc:Dynamic = Reflect.hasField(snd._channel, "__audioSource") ? Reflect.field(snd._channel, "__audioSource") : snd._channel;
+		analyzer.changeSnd(audioSrc);
+	  }
 
 	  stopUpdate = false;
 	}
