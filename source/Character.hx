@@ -6,7 +6,7 @@ import flixel.util.FlxSort;
 import Section;
 import openfl.utils.AssetType;
 import openfl.utils.Assets;
-import haxe.Json;
+import tjson.TJSON;
 
 // Well Cne imports
 import sys.FileSystem;
@@ -221,9 +221,9 @@ class Character extends FunkinMergedSprite implements IBeatReceiver implements I
 				try
 				{
 					#if MODS_ALLOWED
-					loadCharacterFile(Json.parse(File.getContent(path)));
+					loadCharacterFile(TJSON.parse(File.getContent(path)));
 					#else
-					loadCharacterFile(Json.parse(Assets.getText(path)));
+					loadCharacterFile(TJSON.parse(Assets.getText(path)));
 					#end
 				}
 				catch(e:Dynamic)

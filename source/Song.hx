@@ -1,7 +1,6 @@
 package;
 
-import haxe.Json;
-import haxe.format.JsonParser;
+import tjson.TJSON;
 import lime.utils.Assets;
 import Note;
 import Section.SwagSection;
@@ -119,7 +118,7 @@ class Song
 	public static var loadedSongName:String;
 	public static function parseJSONshit(rawJson:String):SwagSong
 	{
-		var swagShit:SwagSong = cast Json.parse(rawJson).song;
+		var swagShit:SwagSong = cast TJSON.parse(rawJson).song;
 		swagShit.validScore = true;
 		return swagShit;
 	}
@@ -218,7 +217,7 @@ class Song
 
 		if (Paths.fileExists(loadedSongFolder, TEXT, false)) {
 			var customChartOption = Paths.getPath(loadedSongFolder, TEXT, true);
-			extraChartOptions = cast Json.parse(File.getContent(customChartOption));
+			extraChartOptions = cast TJSON.parse(File.getContent(customChartOption));
 
 			for (option in extraChartOptions.options) {
 				if (option.forcedCamera != null) PlayState.cameraMode = option.forcedCamera;
@@ -291,7 +290,7 @@ class Song
 	{
 		var rawData:String = loadJson(jsonInput, folder, cneExists, convertedChart);
 
-		var songJson:SwagSong = cast Json.parse(rawData);
+		var songJson:SwagSong = cast TJSON.parse(rawData);
 		if (songJson.song != null && convertTo == 'psych_legacy')
 		{
 			var subSong:SwagSong = Reflect.field(songJson, 'song');
@@ -337,7 +336,7 @@ class Song
 
 	public static function parseJSON(rawData:String, ?nameForError:String = null, ?convertTo:String = 'psych_v1'):SwagSong
 	{
-		var songJson:SwagSong = cast Json.parse(rawData);
+		var songJson:SwagSong = cast TJSON.parse(rawData);
 
 		if(Reflect.hasField(songJson, 'song'))
 		{
