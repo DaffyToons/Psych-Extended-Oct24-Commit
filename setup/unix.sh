@@ -19,7 +19,7 @@ haxelib git hxCodec https://github.com/PsychExtendedThings/hxCodec-0.6.3 --quiet
 haxelib git hxcpp https://github.com/beihu235/hxcpp --quiet #Just a normal hxcpp
 haxelib git lime https://github.com/PsychExtendedThings/lime --quiet
 haxelib set lime git
-haxelib git openfl https://github.com/FunkinDroidTeam/openfl --quiet
+haxelib git openfl https://github.com/openfl/openfl --quiet
 haxelib set openfl gi
 haxelib git flxanimate https://github.com/PsychExtendedThings/flxanimate-ex --quiet
 haxelib git funkin.vis https://github.com/beihu235/funkVis-FrequencyFixed main --quiet
