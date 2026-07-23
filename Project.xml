@@ -14,11 +14,8 @@
 	<!-- Force modern Gradle plugin versions so dependencies like extension-androidtools don't crash -->
 	<config:android gradle-version="7.5" gradle-plugin="7.4.2" />
 	
-	<!-- Append AndroidX flags directly into gradle.properties -->
-	<template path="android/template/gradle.properties" rename="gradle.properties">
-		android.useAndroidX=true
-		android.enableJetifier=true
-	</template>
+	<!-- Inject AndroidX configuration properties directly into Lime's Gradle build -->
+	<config:android gradle-properties="android.useAndroidX=true,android.enableJetifier=true" />
 
 	
 	<!--Switch Export with Unique ApplicationID and Icon-->
