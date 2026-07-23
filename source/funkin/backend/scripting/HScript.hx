@@ -85,7 +85,7 @@ class HScript extends Script {
 		return this;
 	}
 
-	private function importFailedCallback(cl:Array<String>):Bool {
+	private function importFailedCallback(cl:Array<String>, ?err:Null<String>):Bool {
 		var assetsPath = 'assets/source/${cl.join("/")}';
 		for(hxExt in ["hx", "hscript", "hsc", "hxs"]) {
 			var p = '$assetsPath.$hxExt';
