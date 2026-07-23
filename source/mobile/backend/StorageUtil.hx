@@ -3,9 +3,14 @@ package mobile.backend;
 import lime.system.System as LimeSystem;
 import haxe.io.Path;
 import haxe.Exception;
-#if android
-import android.Tools;
-import android.callback.CallBack;
+#if (android && extension.androidtools)
+import android.tools.Tools as AndroidTools;
+import android.tools.Settings as AndroidSettings;
+import android.content.Context as AndroidContext;
+import android.tools.Permissions as AndroidPermissions;
+import android.os.Build.VERSION as AndroidVersion;
+import android.os.Environment as AndroidEnvironment;
+import android.os.Build.VERSION_CODES as AndroidVersionCode;
 #end
 
 /**
@@ -23,7 +28,7 @@ class StorageUtil
 	public static var packageName:String = 'com.kraloyuncu.psychextendedrebase' #if debugBuild + 'debug' #end;
 
 	public static function getStorageDirectory():String
-		return #if android haxe.io.Path.addTrailingSlash(AndroidContext.getExternalFilesDir()) #elseif ios lime.system.System.documentsDirectory #else Sys.getCwd() #end;
+		return #if (android && extension.androidtools) haxe.io.Path.addTrailingSlash(AndroidContext.getExternalFilesDir()) #elseif ios lime.system.System.documentsDirectory #else Sys.getCwd() #end;
 
 	public static function getCustomStorageDirectories(?doNotSeperate:Bool):Array<String>
 	{
@@ -98,6 +103,7 @@ class StorageUtil
 
 	public static function requestPermissions():Void
 	{
+		#if extension.androidtools
 		if (AndroidVersion.SDK_INT >= AndroidVersionCode.TIRAMISU)
 			AndroidPermissions.requestPermissions([
 				'READ_MEDIA_IMAGES',
@@ -116,6 +122,7 @@ class StorageUtil
 			|| (AndroidVersion.SDK_INT < AndroidVersionCode.TIRAMISU
 				&& !AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')))
 			CoolUtil.showPopUp('If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress OK to see what happens', 'Notice!');
+		#end
 
 		try
 		{
