@@ -17,8 +17,6 @@
 
 	<!-- Storage & Libraries -->
 	<haxedef name="SHARE_MOBILE_FILES" if="mobile" />
-	<haxelib name="extension-androidtools" if="android" />
-
 
 	<!-- Required for Android Storage Access Framework (SAF) & Sidebar Shortcut -->
     <haxelib name="extension-androidtools" if="android" />
