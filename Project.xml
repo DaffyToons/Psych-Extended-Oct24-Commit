@@ -14,6 +14,11 @@
 	<!-- Set Gradle & AGP versions -->
 	<config:android gradle-version="7.5" gradle-plugin="7.4.2" />
 	<config:android target-sdk-version="30" compile-sdk-version="33" />
+	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" />
+    <config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+
 
 	<!-- Inject AndroidX flags into gradle.properties -->
 	<set name="ANDROID_GRADLE_PROPERTIES" value="android.useAndroidX=true&#10;android.enableJetifier=true" />
