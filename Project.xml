@@ -19,13 +19,6 @@
 	<haxedef name="SHARE_MOBILE_FILES" if="mobile" />
 	<haxelib name="extension-androidtools" if="android" />
 
-	
-	<!-- Allow Write Access to EXTERNAL_DATA Directory -->
-	<haxedef name="SHARE_MOBILE_FILES" if="mobile" />
-
-	<!-- Keep extension-androidtools active for SAF shortcut support -->
-	<haxelib name="extension-androidtools" if="android" />
-
 
 	<!-- Required for Android Storage Access Framework (SAF) & Sidebar Shortcut -->
     <haxelib name="extension-androidtools" if="android" />
