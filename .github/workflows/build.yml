@@ -50,6 +50,11 @@ jobs:
           ndk-version: r21e
           add-to-path: false
 
+      - name: Setup Android SDK Platforms
+        run: |
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-33" "build-tools;33.0.2"
+
+
       - name: Install Libraries
         run: |
           ${{ inputs.setupCommand }}
