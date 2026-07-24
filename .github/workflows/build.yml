@@ -65,6 +65,7 @@ jobs:
           mkdir -p ~/.gradle
           echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
           echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
+          echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m" >> ~/.gradle/gradle.properties
 
       - name: Compile
         run: haxelib run lime build ${{ inputs.buildArgs }}
