@@ -11,16 +11,11 @@
 		<app title="FNF': Psych Extended Debug" file="PsychEngine" packageName="com.kraloyuncu.psychextendedrebasedebug" package="com.kraloyuncu.psychextendedrebasedebug" main="Main" version="0.2.8" company="KralOyuncu" />
 	</section>
 
-	<!-- Force modern Gradle plugin versions -->
+	<!-- Set Gradle & AGP versions -->
 	<config:android gradle-version="7.5" gradle-plugin="7.4.2" />
 
-	<!-- Inject AndroidX configuration into gradle.properties -->
-	<config:android>
-		<gradle-properties>
-			<android.useAndroidX>true</android.useAndroidX>
-			<android.enableJetifier>true</android.enableJetifier>
-		</gradle-properties>
-	</config:android>
+	<!-- Inject AndroidX flags into gradle.properties -->
+	<set name="ANDROID_GRADLE_PROPERTIES" value="android.useAndroidX=true&#10;android.enableJetifier=true" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
