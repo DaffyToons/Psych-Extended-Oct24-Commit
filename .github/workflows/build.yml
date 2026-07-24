@@ -62,6 +62,12 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT ${{ steps.setup-ndk.outputs.ndk-path }}
           haxelib run lime config JAVA_HOME $JAVA_HOME_11_X64
           haxelib run lime config ANDROID_SETUP true
+          mkdir -p ~/.gradle
+          echo "android.useAndroidX=true" >> ~/.gradle/gradle.properties
+          echo "android.enableJetifier=true" >> ~/.gradle/gradle.properties
+
+      - name: Compile
+        run: haxelib run lime build ${{ inputs.buildArgs }}
 
 
       - name: Compile
